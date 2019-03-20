@@ -1,1 +1,25 @@
 GO id	GO name	Abundance
+GO:0005575	cellular_component	4211.617
+GO:0005618	cell wall	101.242
+GO:0005634	nucleus	86.827
+GO:0005694	chromosome	0.027
+GO:0005727	extrachromosomal circular DNA	121.825
+GO:0005737	cytoplasm	9919.697
+GO:0005739	mitochondrion	193.037
+GO:0005773	vacuole	2.207
+GO:0005783	endoplasmic reticulum	13.859
+GO:0005794	Golgi apparatus	11.581
+GO:0005840	ribosome	1635.336
+GO:0005856	cytoskeleton	0.178
+GO:0005886	plasma membrane	2956.148
+GO:0009295	nucleoid	56.116
+GO:0009579	thylakoid	16.531
+GO:0016020	membrane	76.737
+GO:0019012	virion	0.241
+GO:0019867	outer membrane	502.152
+GO:0031012	extracellular matrix	0.599
+GO:0031982	vesicle	81.097
+GO:0042575	DNA polymerase complex	65.467
+GO:0042597	periplasmic space	130.174
+GO:0043190	ATP-binding cassette (ABC) transporter complex	271.652
+GO:0070469	respiratory chain	2.045

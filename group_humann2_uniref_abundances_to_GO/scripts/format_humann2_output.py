@@ -69,7 +69,7 @@ def format_humann2_output(args, go_annotations):
 
             namespace = go_annotations[go_id]["namespace"]
 
-            if not go_annotations.has_key(go_id):
+            if not go_id in go_annotations:
                 string = go_id + " has not found annotations"
                 raise ValueError(string)
 
