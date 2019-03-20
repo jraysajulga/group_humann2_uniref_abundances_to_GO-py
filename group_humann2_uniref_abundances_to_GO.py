@@ -1,23 +1,28 @@
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-i", type = str,
-                        help = "Path to file with UniRef50 gene family abundance (HUMAnN2 output)",
+
+    parser = argparse.ArgumentParser(description = "Runs scripts to group UniRef50 "
+        "abundances obtained using main HUMANn2 (Gene families) to GO slim terms.")
+
+    # Required arguments
+    parser.add_argument("-i", "--input", type = str,
+                        help = "Path to file with UniRef50 gene family "
+                               "abundance (HUMAnN2 output)",
                         required = True)
     parser.add_argument("-m", type = str,
-                        help = "Path to file which will contain GO slim term"
+                        help = "Path to file which will contain GO slim term "
                                 "abundances corresponding to molecular functions",
                         required = True)
     parser.add_argument("-b", type = str,
-                        help = "Path to file which will contain GO slim term"
+                        help = "Path to file which will contain GO slim term "
                                 "abundances corresponding to biological processes",
                         required = True)
     parser.add_argument("-c", type = str,
-                        help = "Path to file which will contain GO slim term"
+                        help = "Path to file which will contain GO slim term "
                                 "abundances corresponding to cellular components",
                         required = True)
-
+    # Optional arguments
     parser.add_argument("-a", type = str,
                         help = "Path to basic Gene Ontology file")
     parser.add_argument("-s", type = str,
