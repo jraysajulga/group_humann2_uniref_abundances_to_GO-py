@@ -26,12 +26,12 @@ parser.add_argument('-g',
                     help = 'Path to GoaTools scripts')
 parser.add_argument('-p',
                     help = 'Path to HUMAnN2 scripts')
-parser.add_argument('-h',
-                    help = 'Print this help message')
-
 
 
 args = parser.parse_args()
 
 print(args.echo)
 
+
+def main():
+    script = 
