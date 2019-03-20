@@ -48,21 +48,63 @@ def main():
     args = parser.parse_args()
 
     tmp_data_dir = "data"
+    scripts_dir = "scripts"
 
     print("Format HUMAnN2 UniRef50 GO mapping")
     print("==================================")
-    subprocess.call(["python", "scripts/format_humann2_uniref_go_mapping.py",
+    subprocess.call(["python", scripts_dir + "/format_humann2_uniref_go_mapping.py",
                     "--uniref_go_mapping_input", args.map_file,
                     "--uniref_go_mapping_output", tmp_data_dir + "/uniref_go_mapping_output.txt",
                     "--go_names", tmp_data_dir + "/humann2_go_names.txt"])
+    print("")
 
     print("Map to slim GO")
     print("==============")
     with open(tmp_data_dir + "/humann2_go_slim.txt", "wb") as out:
         subprocess.call(["map_to_slim.py",
          "--association_file", tmp_data_dir + "/humann2_go_names.txt",
-         args.go_file, args.goslim_file], 
+         args.go_file,
+         args.goslim_file], 
          stdout = out)
+    print("")
+
+    print("Format slim GO")
+    print("==============")
+    subprocess.call(["python", scripts_dir + "/format_go_correspondance.py",
+        "--go_correspondance_input", tmp_data_dir + "/humann2_go_slim.txt",
+        "--go_correspondance_output", tmp_data_dir + "/formatted_humann2_go_slim.txt"])
+    print("")
+
+    print("Regroup UniRef50 to GO")
+    print("======================")
+    subprocess.call(["humann2_regroup_table",
+        "-i", args.input,
+        "-f", "sum",
+        "-c", tmp_data_dir + "/uniref_go_mapping_output.txt",
+        "-o", tmp_data_dir + "/humann2_go_abundances.txt"])
+    print("")
+
+    print("Regroup GO to slim GO")
+    print("=====================")
+    subprocess.call(["humann2_regroup_table",
+        "-i", tmp_data_dir + "/humann2_go_abundances.txt",
+        "-f", "sum",
+        "-c", tmp_data_dir + "/formatted_humann2_go_slim.txt",
+        "-o", tmp_data_dir + "/humann2_slim_go_abundances.txt"])
+    print("")
+
+    print("Format slim GO abundance")
+    print("========================")
+    subprocess.call(["python", scripts_dir + "/format_humann2_output.py",
+        "--go_slim", args.goslim_file,
+        "--humann2_output", tmp_data_dir + "/humann2_slim_go_abundances.txt",
+        "--molecular_function_output_file", args.goslim_mf,
+        "--biological_processes_output_file", args.goslim_bp,
+        "--cellular_component_output_file", args.goslim_cc])
+    print("")
+
+
+
 
 
 
