@@ -1,4 +1,12 @@
 import argparse
+import sys
+import os
+import subprocess
+import goatools
+#from scripts.format_humann2_uniref_go_mapping import format_humann2_uniref_go_mapping
+
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def main():
 
@@ -39,7 +47,24 @@ def main():
 
     args = parser.parse_args()
 
-    print(args.input)
+    tmp_data_dir = "data"
+
+    print("Format HUMAnN2 UniRef50 GO mapping")
+    print("==================================")
+    subprocess.call(["python", "scripts/format_humann2_uniref_go_mapping.py",
+                    "--uniref_go_mapping_input", args.map_file,
+                    "--uniref_go_mapping_output", tmp_data_dir + "/uniref_go_mapping_output.txt",
+                    "--go_names", tmp_data_dir + "/humann2_go_names.txt"])
+
+    print("Map to slim GO")
+    print("==============")
+    with open(tmp_data_dir + "/humann2_go_slim.txt", "wb") as out:
+        subprocess.call(["map_to_slim.py",
+         "--association_file", tmp_data_dir + "/humann2_go_names.txt",
+         args.go_file, args.goslim_file], 
+         stdout = out)
+
+
 
 
 if __name__=="__main__":
